@@ -6,7 +6,7 @@ FROM ubuntu:18.04 as nginx-installer
 
 LABEL maintainer="NGINX Controller Engineering"
 
-# NGXIN Plus release e.g 25
+# NGINX Plus release e.g 25
 ARG NGINX_PLUS_VERSION=25
 
 COPY nginx-plus-api.conf /etc/nginx/conf.d/
@@ -111,6 +111,10 @@ ENV ENV_CONTROLLER_LOCATION=$LOCATION
 # e.g Instance group already defined in Controller
 ARG INSTANCE_GROUP
 ENV ENV_CONTROLLER_INSTANCE_GROUP=$INSTANCE_GROUP
+
+# Agent logging level e.g INFO, ERROR, DEBUG, TRACE 
+ARG LOG_LEVEL=INFO
+ENV LOGGERS_LEVEL=$LOG_LEVEL
 
 # Forward request logs to Docker log collector
 RUN ln -sf /proc/1/fd/1 /var/log/nginx-controller/agent.log \
